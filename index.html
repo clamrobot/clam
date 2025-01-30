@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="description"
+      content="We introduce continuous latent action models (CLAM), a scalable method for learning capable robot policies from unlabeled video datas">
+    <meta name="keywords"
+      content="CLAM, Self-Supervised Learning, Imitation Learning">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Continuous Latent Action Models: Towards Capable Robot Policies From Videos</title>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async
+      src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+    <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+      rel="stylesheet">
+
+    <link rel="stylesheet" href="./static/css/bulma.min.css">
+    <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+    <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+    <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+    <link rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+    <link rel="stylesheet" href="./static/css/index.css">
+    <!-- <link rel="icon" href="./static/images/favicon.svg"> -->
+
+    <script
+      src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script defer src="./static/js/fontawesome.all.min.js"></script>
+    <script src="./static/js/bulma-carousel.min.js"></script>
+    <script src="./static/js/bulma-slider.min.js"></script>
+    <script src="./static/js/index.js"></script>
+  </head>
+  <body>
+
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+      </div>
+    </nav>
+
+    <section class="hero">
+      <div class="hero-body">
+        <div class="container is-max-desktop">
+          <div class="columns is-centered">
+            <div class="column has-text-centered">
+              <h1 class="title is-1 publication-title">Continuous Latent Action Models: Towards Capable Robot Policies From Videos</h1>
+
+              <div class="column has-text-centered">
+                <div class="publication-links">
+                  <!-- PDF Link. -->
+                  <span class="link-block">
+                    <a href=""
+                      class="external-link button is-normal is-rounded is-dark">
+                      <span class="icon">
+                        <i class="fas fa-file-pdf"></i>
+                      </span>
+                      <span>Paper</span>
+                    </a>
+                  </span>
+                  <!-- Code Link. -->
+                  <span class="link-block">
+                    <a href="https://github.com/clamrobots/clam"
+                      class="external-link button is-normal is-rounded is-dark">
+                      <span class="icon">
+                        <i class="fab fa-github"></i>
+                      </span>
+                      <span>Code</span>
+                    </a>
+                  </span>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <p style="text-align: center; font-size: 24px; margin-bottom: 0px;">
+      <strong><em>We introduce
+        continuous latent action models (CLAM), a scalable method for learning capable robot policies
+        from unlabeled video data.</em></strong>
+    </p>
+
+    <section class="section">
+      <div class="container is-max-desktop">
+        <!-- Abstract. -->
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-four-fifths">
+            <h2 class="title is-3">Abstract</h2>
+            <div class="content has-text-justified">
+                The standard approach to training robot policies is using imitation learning on large amounts of action-labeled expert demonstrations, which are expensive to collect and thus not a scalable solution. 
+                One promising idea is to leverage Internet-scale videos and learn latent action labels in an unsupervised way. 
+                However, as we will show, the existing methods for this idea struggle with complex robotic tasks which require fine-grained motions.
+                Motivated by our findings, we introduce \emph{continuous latent action models} (CLAM), a scalable method for learning capable robot policies from unlabeled video data.
+                CLAM learns continuous latent action labels and improves grounding to true environment actions by jointly training an action decoder on only a small amount of action-labeled data that is not necessarily optimal.
+                We demonstrate on various continuous control benchmarks in DMControl (locomotion), MetaWorld and CALVIN (manipulation) that CLAM significantly outperforms prior state-of-the-art methods, remarkably with a $3 \times$ improvement in task success rate compared to the best baseline.
+                Furthermore, we see that in many scenarios, CLAM nearly matches the performance of a BC method that has access to the true action labels.
+                This work demonstrates the potential of leveraging abundant unlabeled video data to train scalable robot policies, reducing the reliance on costly expert-labeled demonstrations.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="hero teaser">
+      <div class="hero-body">
+        <div class="container is-max-desktop" style="text-align: center;">
+          <div>
+            <img src="./static/images/clam.pdf" alt="clam" style="width: 80%;">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="content has-text-centered">
+          <a class="icon-link"
+            href="./static/videos/nerfies_paper.pdf">
+            <i class="fas fa-file-pdf"></i>
+          </a>
+        </div>
+        <div class="columns is-centered">
+          <div class="column is-8">
+            <div class="content">
+              <p>
+                This website is licensed under a <a rel="license"
+                  href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+                  Commons Attribution-ShareAlike 4.0 International License</a>.
+              </p>
+              <p>
+                Website design borrowed from <a
+                  href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+  </body>
+</html>
