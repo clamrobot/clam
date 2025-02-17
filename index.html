@@ -128,23 +128,86 @@
     <section class="hero teaser">
       <div class="hero-body">
         <div class="container is-max-desktop" style="text-align: center;">
+          <h3 class="title is-3">Overview</h3>
+          <div class="content has-text-justified">
+            We introduce several novel contributions to the paradigm of learning latent actions from unlabeled observation data:
+
+            <ol>
+              <li>We demonstrate that latent actions <em>should not</em> be discretized, contrary to prior works, but rather remain <em><b>continuous</b></em> to be effective
+                 for fine-grained control tasks in locomotion and manipulation.</li>
+              <li>We propose to <em><b>jointly train</b></em> the latent action model and action decoder for grounding latent actions to the environment. We demonstrate 
+                that a jointly trained latent action space improves downstream policy performance on both locomotion and manipulation tasks.</li>
+              <li>We learn a performant control policy <em>without</em> ever training on labeled expert demonstrations, instead leveraging labels from
+                 <em>random</em> or <em>play</em> data.</li>
+            </ol>
+          </div>
+          
+          <h3 class="title is-3">Continuous Latent Action Models</h3>
+
+          CLAM consists of two stages. In Stage 1, we train a latent action model
+          (LAM). We then use this LAM in Stage 2 to train a latent action policy.
+
+          Stage 1 is the pretaining stage of CLAM. We assume access to a large unlabeled dataset of observations, 
+          D_unlabeled, for training the latent action model. A LAM consists of two
+          models: a forward dynamics model (FDM) that predicts the dynamics of the environment and an inverse dynamics model
+          (IDM) that inverts this process by predicting the action that was performed between two subsequent observations.
+          The FDM learns a prediction of the next observation given an observation of the current state and the action performed in that state.
           <div>
             <img src="./static/images/clam.png" alt="clam" style="width: 80%;">
           </div>
+          
+          <br><br>
+
+          <h3 class="title is-3">Experimental Results</h3>
+          <p>
+          We compare CLAM to several state-of-the-art methods in both state- and image-based observations. 
+          We show quantitative results across multiple simulated environments including locomotion tasks in DMControl (Todorov et al. 2012) and 
+          robot manipulation tasks in the MetaWorld (Yu et al. 2020) and CALVIN (Mees et al. 2022) benchmarks shown below.
+          </p>
+          <br>
           <div>
-            <img src="./static/images/image_results.png" alt="image_results" style="width: 80%;">
+            <img src="./static/images/envs.png" alt="env" style="width: 100%;">
           </div>
+          <br>
+          We compare our approach to several state-of-the-art baselines. 
+          Since each baseline uses a different neural architecture, and some utilize pre-trained off-the-shelf 
+          models, we normalize the general architecture and omit pre-trained and language-conditioned components.
+          
+          <br>
+          <b><tt>FINDING 1:</tt></b> CLAM outperforms all baselines and nearly matches the performance of BC with expert data in both state- and image-based experiments.
+          CLAM significantly outperforms all of the baselines across each task with the same amount of labeled data and comparable model architecture, 
+          improving upon the best baseline VPT by more than 2× average normalized return on the DMControl (locomotion) tasks and around 2−3× 
+          success rate on the MetaWorld (manipulation) tasks.
+
+          <div>
+            <img src="./static/images/results_table.png" alt="results_table" style="width: 90%;">
+          </div>
+          
+          <br>
+          These results are consistent even in the image-based experiments shown in the table below.
+          <div>
+            <img src="./static/images/image_results.png" alt="image_results" style="width: 90%;">
+          </div>
+
+          <br><br>
+
+          <h3 class="title is-3">CLAM Design Choices</h3>
+          <b>(Left)</b> Increasing the latent action dimension improves the model expressivity for policy learning. 
+          Up until a latent dimension of 4, the learned latent action space fails to be useful for imitation learning. 
+          However, a latent dimension of 8 has sufficient capacity, achieving 57% success rate on the Assembly task. 
+          <b>(Right)</b> CLAM scales with the amount of unlabeled video data. The performance of the downstream policy improves 
+          as we annotate more trajectories using the pretrained CLAM.
+
           <div>
             <img src="./static/images/latent_dim.png" alt="latent_dim" style="width: 80%;">
           </div>
+
+          <b>(Left)</b> We vary the number of labeled trajectories for training the action decoder. While BC performance struggles to learn 
+          from non-expert data, our method improves with more data. 
+          <b>(Right)</b> We also evaluate the robustness of CLAM to varying expertise of data. We learn a better policy than BC with the same amount
+          of labeled random trajectories. Unsurprisingly, with expert data, our method recovers an optimal policy.
           <div>
             <img src="./static/images/action_labeled.png" alt="action_labeled" style="width: 80%;">
-          </div>
-          <div>
-            <img src="./static/images/envs.png" alt="env" style="width: 80%;">
-          </div>
-          <div>
-            <img src="./static/images/results_table.png" alt="results_table" style="width: 80%;">
           </div>
         </div>
       </div>
