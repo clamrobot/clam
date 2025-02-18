@@ -43,11 +43,17 @@
     <script src="./static/js/bulma-slider.min.js"></script>
     <script src="./static/js/index.js"></script>
     <script type="text/x-mathjax-config">
-      MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+      MathJax.Hub.Config({
+          tex2jax: {
+              inlineMath: [['$', '$'], ['\\(', '\\)']],
+              displayMath: [['$$', '$$'], ['\\[', '\\]']]
+          }
+      });
     </script>
-    <script type="text/javascript"
-      src="http://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-    </script>
+    <script type="text/javascript" async
+  src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
     </head>
   </head>
   <body>
@@ -118,7 +124,7 @@
               However, we find that existing methods struggle when applied to complex robot tasks requiring fine-grained motions. 
               We design <i>continuous latent action models</i> (CLAM) which incorporate two key ingredients we find necessary for learning to solve complex continuous control tasks from unlabeled observation data: (a) using <i>continuous</i> latent action labels instead of discrete representations, and (b) <i>jointly training</i> an action decoder to ensure that the latent action space can be easily grounded to real actions with relatively few labeled examples. 
               Importantly, the labeled examples can be collected from non-optimal play data, enabling CLAM to learn performant policies <i>without</i> access to any expert action-labeled data. 
-              We demonstrate on several continuous control benchmarks in DMControl (locomotion), MetaWorld, and CALVIN (manipulation) that CLAM significantly outperforms prior state-of-the-art methods, remarkably with a \$2-3 \times\$ improvement in task success rate compared to the best baseline. 
+              We demonstrate on several continuous control benchmarks in DMControl (locomotion), MetaWorld, and CALVIN (manipulation) that CLAM significantly outperforms prior state-of-the-art methods, remarkably with a $2-3 \times$ improvement in task success rate to the best baseline. 
             </div>
           </div>
         </div>
