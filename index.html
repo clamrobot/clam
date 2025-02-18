@@ -144,40 +144,51 @@
           
           <h3 class="title is-3">Continuous Latent Action Models</h3>
 
-          CLAM consists of two stages. In Stage 1, we train a latent action model
-          (LAM). We then use this LAM in Stage 2 to train a latent action policy.
+          <div class="content has-text-justified">
+            CLAM consists of two stages. In <b>Stage 1</b>, we train a latent action model
+            (LAM). We then use this LAM in <b>Stage 2</b> to train a latent action policy.
 
-          Stage 1 is the pretaining stage of CLAM. We assume access to a large unlabeled dataset of observations, 
-          D_unlabeled, for training the latent action model. A LAM consists of two
-          models: a forward dynamics model (FDM) that predicts the dynamics of the environment and an inverse dynamics model
-          (IDM) that inverts this process by predicting the action that was performed between two subsequent observations.
-          The FDM learns a prediction of the next observation given an observation of the current state and the action performed in that state.
+            Stage 1 is the pretaining stage of CLAM. We assume access to a large unlabeled dataset of observations for training the latent action model (LAM). 
+            A LAM consists of two models: a <b><span style="color: #4E79A7">forward dynamics model (FDM)</span></b> that predicts the dynamics of the environment and an <b><span style="color: #59A14F">inverse dynamics model
+            (IDM)</span></b> that inverts this process by predicting the action that was performed between two subsequent observations.
+            The FDM learns a prediction of the next observation given an observation of the current state and the action performed in that state.
+            To ground the learned latent actions, we additionally learn a <b><span style="color: #8E6C8A;">latent action decoder</span></b> which predicts the environment action from the latent action.
+            <br><br>
+            After CLAM pretraining, we use the latent IDM to annotate the entire observation dataset with latent actions.
+            We then train a <b><span style="color: #EDC949">latent action policy</span></b>, using imitation learning. 
+            During inference time, our learned policy predicts latent actions given an observation, which the action decoder will 
+            decode into actions that are executable in the environment.
+          </div>
           <div>
-            <img src="./static/images/clam.png" alt="clam" style="width: 80%;">
+            <img src="./static/images/clam.png" alt="clam" style="width: 100%;">
           </div>
           
           <br><br>
 
           <h3 class="title is-3">Experimental Results</h3>
-          <p>
-          We compare CLAM to several state-of-the-art methods in both state- and image-based observations. 
-          We show quantitative results across multiple simulated environments including locomotion tasks in DMControl (Todorov et al. 2012) and 
-          robot manipulation tasks in the MetaWorld (Yu et al. 2020) and CALVIN (Mees et al. 2022) benchmarks shown below.
-          </p>
+          <div class="content has-text-justified">
+            We compare CLAM to several state-of-the-art methods in both state- and image-based observations. 
+            We show quantitative results across multiple simulated environments including locomotion tasks in DMControl (Todorov et al. 2012) and 
+            robot manipulation tasks in the MetaWorld (Yu et al. 2020) and CALVIN (Mees et al. 2022) benchmarks shown below.
+          </div>
           <br>
           <div>
             <img src="./static/images/envs.png" alt="env" style="width: 100%;">
           </div>
           <br>
+
+          <div class="content has-text-justified">
           We compare our approach to several state-of-the-art baselines. 
           Since each baseline uses a different neural architecture, and some utilize pre-trained off-the-shelf 
           models, we normalize the general architecture and omit pre-trained and language-conditioned components.
           
-          <br>
-          <b><tt>FINDING 1:</tt></b> CLAM outperforms all baselines and nearly matches the performance of BC with expert data in both state- and image-based experiments.
-          CLAM significantly outperforms all of the baselines across each task with the same amount of labeled data and comparable model architecture, 
-          improving upon the best baseline VPT by more than 2× average normalized return on the DMControl (locomotion) tasks and around 2−3× 
+          <br><br>
+
+          <b><tt style="font-size: 20px;">FINDING 1:</tt> CLAM outperforms all baselines and nearly matches the performance of BC with expert data in both state- and image-based experiments.</b>
+
+          CLAM improves upon the best baseline VPT by more than 2× average normalized return on the DMControl (locomotion) tasks and around 2−3× 
           success rate on the MetaWorld (manipulation) tasks.
+          </div>
 
           <div>
             <img src="./static/images/results_table.png" alt="results_table" style="width: 90%;">
@@ -191,21 +202,44 @@
 
           <br><br>
 
+          <b><tt style="font-size: 20px;">FINDING 2</tt>: Continuous latent actions and joint action decoder greatly improve performance for continuous control problems.</b>   
+                    
+          <div>
+            <img src="./static/images/ablation.png" alt="ablation" style="width: 60%;">
+          </div>
+
+          <br><br>
+
+          <b><tt style="font-size: 20px;">FINDING 3</tt>: CLAM successfully learns without ever accessing labeled expert data.</b>
+
+          <br><br>
+
           <h3 class="title is-3">CLAM Design Choices</h3>
-          <b>(Left)</b> Increasing the latent action dimension improves the model expressivity for policy learning. 
-          Up until a latent dimension of 4, the learned latent action space fails to be useful for imitation learning. 
-          However, a latent dimension of 8 has sufficient capacity, achieving 57% success rate on the Assembly task. 
-          <b>(Right)</b> CLAM scales with the amount of unlabeled video data. The performance of the downstream policy improves 
-          as we annotate more trajectories using the pretrained CLAM.
+
+          <div class="content has-text-justified">
+            <b>(Left) Latent action dimension directly affects the model’s expressivity.</b>
+            Increasing the latent action dimension improves the model expressivity for policy learning. 
+            Up until a latent dimension of 4, the learned latent action space fails to be useful for imitation learning. 
+            However, a latent dimension of 8 has sufficient capacity, achieving 57% success rate on the Assembly task. 
+            <br>
+            <b>(Right) CLAM scales with more unlabeled target task data.</b>
+            CLAM scales with the amount of unlabeled video data. The performance of the downstream policy improves 
+            as we annotate more trajectories using the pretrained CLAM.
+          </div> 
 
           <div>
             <img src="./static/images/latent_dim.png" alt="latent_dim" style="width: 80%;">
           </div>
+              
+          <div class="content has-text-justified">
+            <b>(Left) Increasing the amount of non-expert action-labeled data improves the action decoder performance.</b>
+            We vary the number of labeled trajectories for training the action decoder. While BC performance struggles to learn 
+            from non-expert data, our method improves with more data. 
+            <br>
+            <b>(Right)</b> We also evaluate the robustness of CLAM to varying expertise of data. We learn a better policy than BC with the same amount
+            of labeled random trajectories. Unsurprisingly, with expert data, our method recovers an optimal policy.
+          </div>
 
-          <b>(Left)</b> We vary the number of labeled trajectories for training the action decoder. While BC performance struggles to learn 
-          from non-expert data, our method improves with more data. 
-          <b>(Right)</b> We also evaluate the robustness of CLAM to varying expertise of data. We learn a better policy than BC with the same amount
-          of labeled random trajectories. Unsurprisingly, with expert data, our method recovers an optimal policy.
           <div>
             <img src="./static/images/action_labeled.png" alt="action_labeled" style="width: 80%;">
           </div>
@@ -215,12 +249,12 @@
 
     <footer class="footer">
       <div class="container">
-        <div class="content has-text-centered">
+        <!-- <div class="content has-text-centered">
           <a class="icon-link"
             href="./static/videos/nerfies_paper.pdf">
             <i class="fas fa-file-pdf"></i>
           </a>
-        </div>
+        </div> -->
         <div class="columns is-centered">
           <div class="column is-8">
             <div class="content">
