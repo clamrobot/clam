@@ -1,0 +1,5 @@
+*.txt
+*.png
+*.ipynb
+__pycache__/*
+*.pyc
